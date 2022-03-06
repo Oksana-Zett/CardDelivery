@@ -23,9 +23,33 @@ import static com.codeborne.selenide.Selectors.*;
 import static com.codeborne.selenide.Selenide.*;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CardDeliveryTest {
+
+    private WebDriver driver;
+
+    @BeforeAll
+    public static void setUpAll (){
+        WebDriverManager.chromedriver().setup();
+
+        //System.setProperty("webdriver.chrome.driver", "driver/win/chromedriver.exe");
+    }
+
+    @BeforeEach
+    public void setUp (){
+        //driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+    }
+
+    @AfterEach
+    public void tearDown (){
+        driver.quit();
+        driver=null;
+    }
 
     @Test
     public void shouldSubmitRequest() {
